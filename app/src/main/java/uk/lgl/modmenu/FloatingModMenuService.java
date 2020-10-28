@@ -69,10 +69,10 @@ public class FloatingModMenuService extends Service {
 
     //********** Here you can easly change menu design **********//
     private final int TEXT_COLOR = Color.parseColor("#82CAFD");
-    private final int MENU_BG_COLOR = Color.parseColor("#DD1C2A35"); //#AARRGGBB
-    private final int MENU_FEATURE_BG_COLOR = Color.parseColor("#FF171E24"); //#AARRGGBB
-    private final int MENU_WIDTH = 290;
-    private final int MENU_HEIGHT = 210;
+    private final int MENU_BG_COLOR = Color.parseColor("#001C2A35"); //#AARRGGBB
+    private final int MENU_FEATURE_BG_COLOR = Color.parseColor("#00171E24"); //#AARRGGBB
+    private final int MENU_WIDTH = 200;
+    private final int MENU_HEIGHT = 300;
     private final float MENU_CORNER = 20f;
 
     //Some fields
@@ -193,10 +193,10 @@ public class FloatingModMenuService extends Service {
         mExpanded.setPadding(0, 0, 0, 0);
         mExpanded.setLayoutParams(new LinearLayout.LayoutParams(dp(MENU_WIDTH), WRAP_CONTENT));
         gdMenuBody = new GradientDrawable();
-        gdMenuBody.setCornerRadius(MENU_CORNER); //Set corner
+        gdMenuBody.setCornerRadius(MENU_CORNER); //Set corner	
         gdMenuBody.setColor(MENU_BG_COLOR); //Set background color
         //gradientdrawable.setStroke(1, Color.parseColor("#32cb00")); //Set border
-        mExpanded.setBackground(Preferences.loadPrefBoolean("Color animation", 1001) ? gdAnimation : gdMenuBody); //Apply GradientDrawable to it
+        mExpanded.setBackground(Preferences.loadPrefBoolean("Change Menu", 1001) ? gdAnimation : gdMenuBody); //Apply GradientDrawable to it
 
         //********** Settings icon **********
         TextView settings = new TextView(getBaseContext());
@@ -222,23 +222,23 @@ public class FloatingModMenuService extends Service {
         //********** Settings **********
         mSettings = new LinearLayout(this);
         mSettings.setOrientation(LinearLayout.VERTICAL);
-        addSwitch(1000, "Sounds");
-        addSwitch(1001, "Color animation");
-        addSwitch(1002, "Auto size vertically");
-        addSwitch(9998, "Save feature preferences");
+       
+        addSwitch(1001, "Change Menu");
+        addSwitch(1002, "Change Size");
+        addSwitch(9998, "Save");
         addButton(9999, "Close");
 
         //********** Title text **********
         RelativeLayout titleText = new RelativeLayout(this);
         titleText.setPadding(10, 5, 10, 5);
         titleText.setVerticalGravity(16);
-
         TextView title = new TextView(getBaseContext());
         title.setText(Title());
         title.setTextColor(TEXT_COLOR);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         title.setTextSize(18.0f);
         title.setGravity(Gravity.CENTER);
+		 
         // title.setShadowLayer(2,0,0,Color.parseColor("#000000"));
 
         RelativeLayout.LayoutParams rl = new RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
@@ -278,7 +278,7 @@ public class FloatingModMenuService extends Service {
 
         Button hideBtn = new Button(this);
         hideBtn.setBackgroundColor(Color.TRANSPARENT);
-        hideBtn.setText("HIDE/KILL (Hold)");
+        hideBtn.setText("❌");
         hideBtn.setTextColor(TEXT_COLOR);
         hideBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -301,7 +301,7 @@ public class FloatingModMenuService extends Service {
         //Close button
         Button closeBtn = new Button(this);
         closeBtn.setBackgroundColor(Color.TRANSPARENT);
-        closeBtn.setText("MINIMIZE");
+        closeBtn.setText("⭕");
         closeBtn.setTextColor(TEXT_COLOR);
         closeBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -491,9 +491,9 @@ public class FloatingModMenuService extends Service {
         switchR.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton compoundButton, boolean z) {
                 if (z) {
-                    playSound("On.ogg");
+                    //playSound("On.ogg");
                 } else {
-                    playSound("Off.ogg");
+                    //playSound("Off.ogg");
                 }
                 if (featureNum == 1001)
                     mExpanded.setBackground(z ? gdAnimation : gdMenuBody);
@@ -584,7 +584,7 @@ public class FloatingModMenuService extends Service {
                     Preferences.changeFeatureBoolean(finalFeatureName, featureNum, isActive2);
                     //Log.d(TAG, finalFeatureName + " " + featureNum + " " + isActive2);
                     if (isActive2) {
-                        playSound("On.ogg");
+                        //playSound("On.ogg");
                         button.setText(finalFeatureName + ": ON");
                         button.setBackgroundColor(Color.parseColor("#003300"));
                         isActive2 = false;
@@ -602,7 +602,7 @@ public class FloatingModMenuService extends Service {
             final String finalFeatureName1 = featureName;
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    playSound("Select.ogg");
+                    //playSound("Select.ogg");
                     if (featureNum == 9999) {
                         scrollView.removeView(mSettings);
                         scrollView.addView(patches);
@@ -716,7 +716,7 @@ public class FloatingModMenuService extends Service {
 
     private void addCategory(String text) {
         TextView textView = new TextView(this);
-        textView.setBackgroundColor(Color.parseColor("#2F3D4C"));
+        textView.setBackgroundColor(Color.parseColor("#002F3D4C"));
         textView.setText(text);
         textView.setGravity(17);
         textView.setTextSize(14.0f);
@@ -747,7 +747,7 @@ public class FloatingModMenuService extends Service {
     public void playSound(String uri) {
         if (Preferences.isSoundEnabled) {
             if (!soundDelayed) {
-                soundDelayed = true;
+                soundDelayed = false;
                 if (FXPlayer != null) {
                     FXPlayer.stop();
                     FXPlayer.release();
@@ -755,7 +755,7 @@ public class FloatingModMenuService extends Service {
                 FXPlayer = MediaPlayer.create(this, Uri.fromFile(new File(cacheDir + uri)));
                 if (FXPlayer != null) {
                     //Volume reduced so sounds are not too loud
-                    FXPlayer.setVolume(0.4f, 0.4f);
+                    FXPlayer.setVolume(0.0f, 0.0f);
                     FXPlayer.start();
                 }
 
@@ -776,15 +776,15 @@ public class FloatingModMenuService extends Service {
     }
 
     public void startAnimation() {
-        final int start = Color.parseColor("#dd00820d");
-        final int end = Color.parseColor("#dd000282");
+        final int start = Color.parseColor("#dd00A460");
+        final int end = Color.parseColor("#ddDC00A5");
 
         final ArgbEvaluator evaluator = new ArgbEvaluator();
         gdAnimation.setCornerRadius(MENU_CORNER);
         gdAnimation.setOrientation(GradientDrawable.Orientation.TL_BR);
         final GradientDrawable gradient = gdAnimation;
 
-        ValueAnimator animator = TimeAnimator.ofFloat(0.0f, 1.0f);
+        ValueAnimator animator = TimeAnimator.ofFloat(0.0f, 10.0f);
         animator.setDuration(10000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setRepeatMode(ValueAnimator.REVERSE);

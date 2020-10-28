@@ -49,7 +49,7 @@ public class Preferences {
             editor = preferences.edit();
             if (feature.equals("Sounds") && !preferences.contains("Sounds"))
                 return true;
-            if (feature.equals("Color animation") && !preferences.contains("Color animation"))
+            if (feature.equals("Change Menu") && !preferences.contains("Change Menu"))
                 return true;
             return preferences.getBoolean(feature, false);
         }

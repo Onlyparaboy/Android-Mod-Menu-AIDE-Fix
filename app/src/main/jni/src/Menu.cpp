@@ -116,7 +116,7 @@ Java_uk_lgl_modmenu_FloatingModMenuService_getFeatureList(JNIEnv *env, jobject a
     const char *features[] = {
             OBFUSCATE("Category_The Category"),
             OBFUSCATE("Toggle_The toggle"),
-            OBFUSCATE("SeekBar_The slider_0_100"),
+            OBFUSCATE("SeekBar_The slider_0_10"),
             OBFUSCATE("Spinner_The spinner_Items 1_Items 2_Items 3"),
             OBFUSCATE("Button_The button"),
             OBFUSCATE("Button_OnOff_The On/Off button"),
