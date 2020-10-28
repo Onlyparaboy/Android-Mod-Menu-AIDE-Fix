@@ -6,4 +6,4 @@ Thanks to MITOS Team. Watch his video here https://www.youtube.com/watch?v=K1uwc
 
 I personally don't use AIDE so i can't confirm if it works or not. This may not work for someone
 
-If it does not work, try other fix by @New8BPTeam
+If it does not work, try other fix by [Raunak Mods](https://www.youtube.com/channel/UCti3Xie4fKiqPW49ARfDzgw): https://github.com/LGLTeam/Android-Mod-Menu-AIDE-Fix/tree/RaunakMods-fix
